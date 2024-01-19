@@ -1,0 +1,13 @@
+package com.example.formofart;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FormOfArtApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(FormOfArtApplication.class, args);
+    }
+
+}
