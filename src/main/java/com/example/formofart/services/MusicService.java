@@ -1,6 +1,7 @@
 package com.example.formofart.services;
 
 import com.example.formofart.models.Music;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@SpringBootApplication
 public class MusicService {
     private final List<Music> musicList = new ArrayList<>();
 
