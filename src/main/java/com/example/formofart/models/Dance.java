@@ -56,4 +56,11 @@ public class Dance {
                 ", origin='" + origin + '\'' +
                 '}';
     }
+
+    public int getId() {
+        return 0;
+    }
+
+    public void setId(int i) {
+    }
 }
