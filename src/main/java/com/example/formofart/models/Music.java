@@ -1,43 +1,59 @@
-package com.example.formofart.service;
+package com.example.formofart.model;
 
-import com.example.formofart.model.Music;
-import org.springframework.stereotype.Service;
+public class Music {
+    private String title;
+    private String artist;
+    private int year;
+    private boolean favorite;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-@Service
-public class MusicService {
-    private final List<Music> musicList = new ArrayList<>();
-
-    public List<Music> getAllMusic() {
-        return musicList;
+    public Music(String title, String artist, int year, boolean favorite) {
+        this.title = title;
+        this.artist = artist;
+        this.year = year;
+        this.favorite = favorite;
     }
 
-    public Optional<Music> getMusicById(int id) {
-        return musicList.stream().filter(music -> music.getId() == id).findFirst();
+    // Access methods (getters and setters)
+
+    public String getTitle() {
+        return title;
     }
 
-    public Music createMusic(Music music) {
-        // Simulating auto-increment id
-        music.setId(musicList.size() + 1);
-        musicList.add(music);
-        return music;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Music updateMusic(int id, Music updatedMusic) {
-        for (int i = 0; i < musicList.size(); i++) {
-            if (musicList.get(i).getId() == id) {
-                updatedMusic.setId(id);
-                musicList.set(i, updatedMusic);
-                return updatedMusic;
-            }
-        }
-        return null;
+    public String getArtist() {
+        return artist;
     }
 
-    public boolean deleteMusic(int id) {
-        return musicList.removeIf(music -> music.getId() == id);
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    @Override
+    public String toString() {
+        return "Music{" +
+                "title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", year=" + year +
+                ", favorite=" + favorite +
+                '}';
     }
 }
