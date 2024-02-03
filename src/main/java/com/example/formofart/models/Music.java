@@ -56,4 +56,11 @@ public class Music {
                 ", favorite=" + favorite +
                 '}';
     }
+
+    public int getId() {
+        return 0;
+    }
+
+    public void setId(int id) {
+    }
 }
