@@ -1,4 +1,4 @@
-package com.example.formofart.model;
+package com.example.formofart.models;
 
 public class Music {
     private String title;
