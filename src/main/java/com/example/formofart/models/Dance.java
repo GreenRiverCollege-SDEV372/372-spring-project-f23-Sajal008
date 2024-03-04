@@ -15,6 +15,11 @@ public class Dance {
 
     // Access methods (getters and setters)
 
+    @Entity
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+
     public String getStyle() {
         return style;
     }
