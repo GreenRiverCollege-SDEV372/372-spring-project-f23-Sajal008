@@ -1,5 +1,6 @@
 package com.example.formofart;
 
+import com.example.formofart.db.MusicRepository;
 import com.example.formofart.models.Music;
 import com.example.formofart.models.Dance;
 import com.example.formofart.services.MusicService;
@@ -18,8 +19,12 @@ public class FormOfArtApplication {
         ApplicationContext context = SpringApplication.run(FormOfArtApplication.class, args);
         MusicRepository dbRepo = context.getBean(MusicRepository.class);
 
-        List<Movie> movies = new ArrayList<>(List.of(
-                new Movie(0, "Inception", 2010, "Science Fiction", "PG-13", false),
+        List<Music> music = new ArrayList<>(List.of(
+                new Music(0, "Don't Go", "Deyez", 2021, true),
+                new Music(0, "A-Team", "Ed Sheeran", 2018, true),
+                new Music(0, "Love yourz", "J. Cole", 2009, true),
+                new Music(0, "Moto Mami", "Rosalia", 2020, false)
+        ));
 
     }
 }
