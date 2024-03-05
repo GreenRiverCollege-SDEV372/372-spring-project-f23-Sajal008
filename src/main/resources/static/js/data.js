@@ -31,4 +31,4 @@ window.onload = async function() {
             <p>ID #${music.id}</p>
             <p>Artist: ${music.artist}</p>
         </div>`;
-    }
+    }}
