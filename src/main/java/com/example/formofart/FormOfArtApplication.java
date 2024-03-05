@@ -1,5 +1,6 @@
 package com.example.formofart;
 
+import com.example.formofart.db.DanceRepository;
 import com.example.formofart.db.MusicRepository;
 import com.example.formofart.models.Music;
 import com.example.formofart.models.Dance;

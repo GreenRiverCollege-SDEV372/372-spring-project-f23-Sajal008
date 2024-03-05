@@ -26,12 +26,14 @@ public class FormOfArtAPI {
         this.service = service;
     }
 
+    //get
     @GetMapping("all")
     public ResponseEntity<List<Music>> all()
     {
         return new ResponseEntity<>(service.all(), HttpStatus.OK);
     }
 
+    //post
     @PostMapping("")
     public ResponseEntity addMovie(@RequestBody Music newMusic)
     {

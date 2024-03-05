@@ -1,45 +1,32 @@
 package com.example.formofart.services;
 
+import com.example.formofart.db.DanceRepository;
 import com.example.formofart.models.Dance;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Service;
+import com.example.formofart.db.MusicRepository;
+import com.example.formofart.models.Music;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
-@SpringBootApplication
+
 public class DanceService {
-    private final List<Dance> danceList = new ArrayList<>();
+    private DanceRepository repository;
 
-    public List<Dance> getAllDances() {
-        return danceList;
+    public DanceService(DanceRepository repository)
+    {
+        this.repository = repository;
     }
 
-    public Optional<Dance> getDanceById(int id) {
-        return danceList.stream().filter(dance -> dance.getId() == id).findFirst();
+    public Dance getRandomMovie()
+    {
+        Random generator = new Random();
+        List<Dance> movies = repository.findAll();
+        int index = generator.nextInt(movies.size());
+        return movies.get(index);
     }
 
-    public Dance createDance(Dance dance) {
-        // Simulating auto-increment id
-        dance.setId(danceList.size() + 1);
-        danceList.add(dance);
-        return dance;
-    }
-
-    public Dance updateDance(int id, Dance updatedDance) {
-        for (int i = 0; i < danceList.size(); i++) {
-            if (danceList.get(i).getId() == id) {
-                updatedDance.setId(id);
-                danceList.set(i, updatedDance);
-                return updatedDance;
-            }
-        }
-        return null;
-    }
-
-    public boolean deleteDance(int id) {
-        return danceList.removeIf(dance -> dance.getId() == id);
-    }
 }
