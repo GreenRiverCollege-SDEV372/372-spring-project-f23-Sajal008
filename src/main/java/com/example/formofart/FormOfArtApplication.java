@@ -1,3 +1,7 @@
+/*@author: Sajal Khadgi
+        Spring boot application
+        This app is about things that peeks my interest*/
+
 package com.example.formofart;
 
 import com.example.formofart.db.DanceRepository;
@@ -19,6 +23,7 @@ public class FormOfArtApplication {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(FormOfArtApplication.class, args);
         MusicRepository dbRepo = context.getBean(MusicRepository.class);
+
 
         List<Music> music = new ArrayList<>(List.of(
                 new Music(0, "Don't Go", "Deyez", 2021, true),

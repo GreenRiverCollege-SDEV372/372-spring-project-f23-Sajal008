@@ -2,7 +2,7 @@
 
 window.onload = async function() {
     //fetch the data
-    const uri = "http://localhost:3000/api/v1/music/all";
+    const uri = "http://localhost:8080/api/v1/music/all";
     const config = {
         method: 'get'
     }
