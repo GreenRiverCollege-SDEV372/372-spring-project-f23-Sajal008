@@ -11,22 +11,22 @@ window.onload = async function() {
     const data = await response.json();
     showMusic(data);
 
-    function showMusic(movies)
+    function showMusic(music)
     {
         const section = document.querySelector("#music");
         console.log(section);
 
 
-        for (let i = 0; i < movies.length; i++)
+        for (let i = 0; i < music.length; i++)
         {
-            const movie = movies[i];
-            addMusicSection(section, movie);
+            const music = music[i];
+            addMusicSection(section, music);
         }
     }
 
-    function addMusicSection(section, movie)
+    function addMusicSection(section, music)
     {
-        section.innerHTML += `<div class="movie">
+        section.innerHTML += `<div class="music">
             <h2>${music.title}</h2>
             <p>ID #${music.id}</p>
             <p>Artist: ${music.artist}</p>

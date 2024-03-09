@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Random;
 
 
-//a web api to deliver movies...
+//a web api for music
 @RestController
-@RequestMapping("api/v1/movies")
+@RequestMapping("api/v1/music")
 @CrossOrigin(origins = "*")
 public class FormOfArtAPI {
 
@@ -35,7 +35,7 @@ public class FormOfArtAPI {
 
     //post
     @PostMapping("")
-    public ResponseEntity addMovie(@RequestBody Music newMusic)
+    public ResponseEntity addMusic(@RequestBody Music newMusic)
     {
         return new ResponseEntity(service.addMusic(newMusic),
                 HttpStatus.CREATED);
