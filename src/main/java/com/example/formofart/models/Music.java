@@ -20,7 +20,7 @@ public class Music {
     private int id;
     private String title;
     private String artist;
-    private int year;
+    private int ReleaseYear;
     private boolean favorite;
 
     }
