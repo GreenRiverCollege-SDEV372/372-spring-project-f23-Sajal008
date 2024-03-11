@@ -32,5 +32,7 @@ public class FormOfArtApplication {
                 new Music(0, "Moto Mami", "Rosalia", 2020, false)
         ));
 
+        dbRepo.saveAll(music);
+
     }
 }
