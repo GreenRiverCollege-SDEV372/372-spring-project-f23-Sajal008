@@ -1,13 +1,15 @@
+/* General styles */
 html {
     background-color: #f0f0f0;
 }
 
 body {
-    background-color: sandybrown;
+    background-color: lightsalmon;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: Arial, sans-serif;
 }
 
 h1 {
@@ -18,6 +20,7 @@ h1 {
     margin: 20px 0;
 }
 
+/* Music item styles */
 .music {
     border: 2px solid #333;
     padding: 10px;
@@ -38,12 +41,15 @@ p {
     margin: 4px 0;
     color: #666;
 }
+
+/* Music container styles */
 #music {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
+/* Form styles */
 form {
     width: 60%;
     background-color: #333;
@@ -51,28 +57,30 @@ form {
     padding: 20px;
     border-radius: 10px;
     margin: 20px 0;
+    height: 200px;
+    overflow-y: auto;
+
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 5px;
 }
 
 label {
-    margin: 8px 0;
+    margin-bottom: 10px;
     font-size: 1.1em;
 }
 
 input {
-    margin: 4px 0;
-    padding: 8px 12px;
+    margin-bottom: 4px;
+    padding: 8px;
     border-radius: 5px;
     border: 1px solid #666;
     background-color: #f0f0f0;
+    width: 100%;
 }
 
 button {
-    margin-top: 10px;
     background-color: #fff;
     color: #333;
     border: none;
@@ -81,7 +89,46 @@ button {
     cursor: pointer;
 }
 
-hover {
-     background-color: #666;
-     color: #fff;
- }
+button:hover {
+    background-color: #666;
+    color: #fff;
+}
+
+/* Table styles */
+table {
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    height: 200px;
+    overflow-y: auto;
+}
+
+td {
+    border: 1px solid #333; /* Add borders to table headers and cells */
+    padding: 8px; /* Add padding to table cells */
+}
+
+th {
+    background-color: #333; /* Set background color for table headers */
+    color: #fff; /* Set text color for table headers */
+
+
+}
+
+/* Button styles */
+button {
+    margin-top: 20px; /* Add space between form and buttons */
+    display: block; /* Ensure buttons take full width */
+    width: 100%;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #666;
+    color: #fff;
+}

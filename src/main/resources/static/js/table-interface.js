@@ -1,56 +1,98 @@
 // Wait until the page finishes loading
-window.onload = function() {
-    // Select all edit links and assign click event listeners
-    const editLinks = document.querySelectorAll('.edit');
-    for (const link of editLinks) {
-        link.onclick = handleEditClick;
-    }
+window.onload = async function() {
+    // Fetch music data and populate the table
+    const musicData = await fetchMusicData();
+    displayMusicData(musicData);
 
-    // Select all delete links and assign click event listeners
-    const deleteLinks = document.querySelectorAll('.delete');
-    for (const link of deleteLinks) {
-        link.onclick = handleDeleteClick;
-    }
+    // Handle form submission for adding new record
+    const addMusicForm = document.getElementById("addMusicForm");
+    addMusicForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const title = document.getElementById("title").value;
+        const genre = document.getElementById("genre").value;
+        if (title && genre) {
+            const newMusic = await addMusic(title, genre);
+            if (newMusic) {
+                displayMusic(newMusic);
+                addMusicForm.reset();
+            } else {
+                alert("Failed to add new music. Please try again.");
+            }
+        } else {
+            alert("Please enter both title and genre.");
+        }
+    });
+
+    // Handle edit and delete links in the table
+    document.getElementById("musicTableBody").addEventListener("click", async function(event) {
+        const target = event.target;
+        if (target.classList.contains("edit")) {
+            const row = target.closest("tr");
+            editMusic(row);
+        } else if (target.classList.contains("delete")) {
+            const row = target.closest("tr");
+            const id = row.dataset.id;
+            const confirmation = confirm("Are you sure you want to delete this record?");
+            if (confirmation) {
+                const success = await deleteMusic(id);
+                if (success) {
+                    row.remove();
+                } else {
+                    alert("Failed to delete music. Please try again.");
+                }
+            }
+        }
+    });
+};
+
+// Function to display music data in the table
+function displayMusicData(musicData) {
+    const musicTableBody = document.getElementById("musicTableBody");
+    musicTableBody.innerHTML = "";
+    musicData.forEach(music => displayMusic(music));
 }
 
-// Function to handle delete link clicks
-function handleDeleteClick(evt) {
-    // Retrieve the delete link and its parent row
-    const deleteLink = evt.target;
-    const row = deleteLink.parentElement.parentElement;
-
-    // Extract the ID of the record from the first cell
-    const id = row.children[0].innerHTML;
-
-    //Send a fetch request to delete the record
-    fetch(`/api/records/${id}`, {
-        method: 'DELETE',
-     })
-    .then(response => {
-         if (response.ok) {
-             // If deletion is successful, remove the row from the table
-             row.remove();
-         } else {
-             console.error('Failed to delete record');
-         }
-     })
-     .catch(error => console.error('Error:', error));
-
-    row.remove();
+// Function to display a single music record in a table row
+function displayMusic(music) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${music.id}</td>
+        <td>${music.title}</td>
+        <td>${music.genre}</td>
+        <td><a href="#" class="edit">Edit</a></td>
+        <td><a href="#" class="delete">Delete</a></td>
+    `;
+    row.dataset.id = music.id; // Store music ID in a data attribute
+    document.getElementById("musicTableBody").appendChild(row);
 }
 
-// Function to handle edit link clicks
-function handleEditClick(evt) {
-    // Retrieve the edit link and its parent row
-    const editLink = evt.target;
-    const row = editLink.parentElement.parentElement;
+// Function to populate form fields with existing music data for editing
+function editMusic(row) {
+    const id = row.dataset.id;
+    const title = row.cells[1].textContent;
+    const genre = row.cells[2].textContent;
+    const titleInput = document.getElementById("title");
+    const genreInput = document.getElementById("genre");
+    titleInput.value = title;
+    genreInput.value = genre;
 
-    // Extract the ID and current values of the record
-    const id = row.children[0].innerHTML;
-    const species = row.children[2].innerHTML;
-    const location = row.children[4].innerHTML;
-
-    // Replace the text with input fields for editing
-    row.children[2].innerHTML = `<input type="text" id="species" value="${species}">`;
-    row.children[4].innerHTML = `<input type="text" id="location" value="${location}">`;
+    // Handle form submission for updating existing record
+    const addMusicForm = document.getElementById("addMusicForm");
+    addMusicForm.onsubmit = async function(event) {
+        event.preventDefault();
+        const newTitle = titleInput.value;
+        const newGenre = genreInput.value;
+        if (newTitle && newGenre) {
+            const success = await updateMusic(id, newTitle, newGenre);
+            if (success) {
+                row.cells[1].textContent = newTitle;
+                row.cells[2].textContent = newGenre;
+                addMusicForm.reset();
+            } else {
+                alert("Failed to update music. Please try again.");
+            }
+        } else {
+            alert("Please enter both title and genre.");
+        }
+    };
 }

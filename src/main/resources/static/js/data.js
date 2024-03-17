@@ -1,61 +1,69 @@
-// When the page loads
-window.onload = async function() {
-    // Fetch music data
-    const uri = "http://localhost:8080/api/v1/music/all";
-    const config = { method: 'get' };
-    const response = await fetch(uri, config);
-    const data = await response.json();
-    showMusic(data);
-
-    // Handle form submission
-    const button = document.querySelector("button");
-    button.onclick = addMusic;
-};
-
-// Add new music
-async function addMusic(event) {
-    event.preventDefault(); // Prevent form submission
-    const newMusic = {
-        title: document.querySelector("#title").value,
-        genre: document.querySelector("#genre").value
-    };
-    const uri = "http://localhost:8080/api/v1/music";
-    const config = {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newMusic)
-    };
-    const response = await fetch(uri, config);
-    const music = await response.json();
-    const section = document.querySelector("#music");
-    addMusicSection(section, music);
-}
-
-// Display music
-function showMusic(music) {
-    const section = document.querySelector("#music");
-    for (const item of music) {
-        addMusicSection(section, item);
+// Fetch music data
+async function fetchMusicData() {
+    try {
+        const response = await fetch("http://localhost:8080/api/v1/music/all");
+        if (!response.ok) {
+            throw new Error("Failed to fetch music data");
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching music data:", error);
+        return [];
     }
 }
 
-// Add music section to HTML
-function addMusicSection(section, music) {
-    const musicDiv = document.createElement("div");
-    musicDiv.classList.add("music");
+// Add new music
+async function addMusic(title, genre) {
+    try {
+        const response = await fetch("http://localhost:8080/api/v1/music", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ title, genre })
+        });
+        if (!response.ok) {
+            throw new Error("Failed to add new music");
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error adding new music:", error);
+        return null;
+    }
+}
 
-    const titleHeader = document.createElement("h2");
-    titleHeader.textContent = music.title;
+// Update existing music
+async function updateMusic(id, title, genre) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/v1/music/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ title, genre })
+        });
+        if (!response.ok) {
+            throw new Error("Failed to update music");
+        }
+        return true;
+    } catch (error) {
+        console.error("Error updating music:", error);
+        return false;
+    }
+}
 
-    const idParagraph = document.createElement("p");
-    idParagraph.textContent = `ID #${music.id}`;
-
-    const genreParagraph = document.createElement("p");
-    genreParagraph.textContent = `Genre: ${music.genre}`;
-
-    musicDiv.appendChild(titleHeader);
-    musicDiv.appendChild(idParagraph);
-    musicDiv.appendChild(genreParagraph);
-
-    section.appendChild(musicDiv);
+// Delete existing music
+async function deleteMusic(id) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/v1/music/${id}`, {
+            method: "DELETE"
+        });
+        if (!response.ok) {
+            throw new Error("Failed to delete music");
+        }
+        return true;
+    } catch (error) {
+        console.error("Error deleting music:", error);
+        return false;
+    }
 }
