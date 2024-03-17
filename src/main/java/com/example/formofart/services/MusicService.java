@@ -71,11 +71,6 @@ public class MusicService {
         return results;
     }
 
-    public Music addMovie(Music music)
-    {
-        //this will result in an INSERT SQL statement
-        return repository.save(music);
-    }
 
     public Music updateMusic(Music updatedMusic, int id)
     {

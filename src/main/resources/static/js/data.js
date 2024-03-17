@@ -1,88 +1,61 @@
-//begin the pasge loade
-
+// When the page loads
 window.onload = async function() {
-    //fetch the data
+    // Fetch music data
     const uri = "http://localhost:8080/api/v1/music/all";
-    const config = {
-        method: 'get'
-    }
-
+    const config = { method: 'get' };
     const response = await fetch(uri, config);
     const data = await response.json();
-    showMusics(data);
+    showMusic(data);
 
+    // Handle form submission
     const button = document.querySelector("button");
     button.onclick = addMusic;
+};
 
-
-
-    function showMusics(music)
-    {
-        const section = document.querySelector("#music");
-        console.log(section);
-
-
-        for (let i = 0; i < music.length; i++)
-        {
-            const music = music[i];
-            addMusicSection(section, music);
-        }
-    }
-
-    function addMusicSection(section, music)
-    {
-        section.innerHTML += `<div class="music">
-            <h2>${music.title}</h2>
-            <p>ID #${music.id}</p>
-            <p>Artist: ${music.artist}</p>
-        </div>`;
-    }}
-
-// to show music on the page
-
-async function addMusic(event)
-{
-    //stop the form from submitting
-    event.preventDefault();
-
+// Add new music
+async function addMusic(event) {
+    event.preventDefault(); // Prevent form submission
     const newMusic = {
         title: document.querySelector("#title").value,
         genre: document.querySelector("#genre").value
-    }
-
-    const uri = "http://localhost:8080/music/all";
+    };
+    const uri = "http://localhost:8080/api/v1/music";
     const config = {
         method: "post",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newMusic)
-    }
-
+    };
     const response = await fetch(uri, config);
     const music = await response.json();
-
     const section = document.querySelector("#music");
     addMusicSection(section, music);
 }
-function showMusic(musics)
-{
+
+// Display music
+function showMusic(music) {
     const section = document.querySelector("#music");
-    console.log(section);
-
-
-    for (let i = 0; i < musics.length; i++)
-    {
-        const music = music[i];
-        addMusicSection(section, music);
+    for (const item of music) {
+        addMusicSection(section, item);
     }
 }
 
-function addMusicSection(section, music)
-{
+// Add music section to HTML
+function addMusicSection(section, music) {
+    const musicDiv = document.createElement("div");
+    musicDiv.classList.add("music");
 
-    section.innerHTML += `<div class="music">
-            <h2>${music.title}</h2>
-            <p>ID #${music.id}</p>
-        </div>`;
+    const titleHeader = document.createElement("h2");
+    titleHeader.textContent = music.title;
+
+    const idParagraph = document.createElement("p");
+    idParagraph.textContent = `ID #${music.id}`;
+
+    const genreParagraph = document.createElement("p");
+    genreParagraph.textContent = `Genre: ${music.genre}`;
+
+    musicDiv.appendChild(titleHeader);
+    musicDiv.appendChild(idParagraph);
+    musicDiv.appendChild(genreParagraph);
+
+    section.appendChild(musicDiv);
 }
