@@ -19,7 +19,7 @@ public class Music {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
-    private String artist;
+    private String genre;
     private int ReleaseYear;
     private boolean favorite;
 
