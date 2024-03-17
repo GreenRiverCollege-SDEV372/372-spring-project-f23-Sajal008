@@ -33,6 +33,33 @@ public class FormOfArtAPI {
         return new ResponseEntity<>(service.all(), HttpStatus.OK);
     }
 
+    @GetMapping("title/{title}")
+    public ResponseEntity<Music> byTitle(@PathVariable String title)
+    {
+        return new ResponseEntity<>(service.byTitle(title), HttpStatus.OK);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Music> byId(@PathVariable int id)
+    {
+        Music music = service.byId(id);
+        if (music == null)
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else
+        {
+            return new ResponseEntity(music, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("year/{year}")
+    public ResponseEntity<List<Music>> byYear(@PathVariable int year)
+    {
+        return new ResponseEntity(service.byYear(year), HttpStatus.OK);
+    }
+
+
     //post
     @PostMapping("")
     public ResponseEntity addMusic(@RequestBody Music newMusic)
@@ -41,5 +68,35 @@ public class FormOfArtAPI {
                 HttpStatus.CREATED);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<Music> updateMusic(@PathVariable int id,
+                                             @RequestBody Music updatedMusic)
+    {
+        Music music = service.byId(id);
+        if (music == null)
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else
+        {
+            return new ResponseEntity(service.updateMusic(updatedMusic, id),
+                    HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity deleteMusic(@PathVariable int id)
+    {
+        Music music = service.byId(id);
+        if (music == null)
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else
+        {
+            service.deleteMusic(id);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+    }
 
 }
