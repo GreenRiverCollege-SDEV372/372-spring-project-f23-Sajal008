@@ -1,15 +1,19 @@
 // Wait until the page finishes loading
 window.onload = async function() {
-    // Fetch music data and populate the table
+
+    // Fetch music data
     const musicData = await fetchMusicData();
     displayMusicData(musicData);
 
-    // Handle form submission for adding new record
+    //submission for adding new data
+
     const addMusicForm = document.getElementById("addMusicForm");
-    addMusicForm.addEventListener("submit", async function(event) {
+    addMusicForm.addEventListener("submit", async function(event)
+    {
         event.preventDefault();
         const title = document.getElementById("title").value;
         const genre = document.getElementById("genre").value;
+
         if (title && genre) {
             const newMusic = await addMusic(title, genre);
             if (newMusic) {
@@ -23,7 +27,7 @@ window.onload = async function() {
         }
     });
 
-    // Handle edit and delete links in the table
+    // For edit and delete
     document.getElementById("musicTableBody").addEventListener("click", async function(event) {
         const target = event.target;
         if (target.classList.contains("edit")) {

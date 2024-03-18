@@ -1,3 +1,7 @@
+
+//Sajal's Web app
+//JS for the web app with various async function
+
 // Fetch music data
 async function fetchMusicData() {
     try {

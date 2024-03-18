@@ -28,7 +28,7 @@ public class MusicService {
 
     public Music addMusic(Music music)
     {
-        //this will result in an INSERT SQL statement
+        //this will add as SQL statement
         return repository.save(music);
     }
 
