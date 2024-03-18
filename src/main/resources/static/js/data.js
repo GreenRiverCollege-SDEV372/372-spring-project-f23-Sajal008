@@ -1,11 +1,8 @@
-
-//Sajal's Web app
-//JS for the web app with various async function
-
 // Fetch music data
 async function fetchMusicData() {
     try {
-        const response = await fetch("http://localhost:8080/api/v1/music/all");
+        const url = `${window.location.origin}/api/v1/music/all`;
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error("Failed to fetch music data");
         }
@@ -19,7 +16,8 @@ async function fetchMusicData() {
 // Add new music
 async function addMusic(title, genre) {
     try {
-        const response = await fetch("http://localhost:8080/api/v1/music", {
+        const url = `${window.location.origin}/api/v1/music`;
+        const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -39,7 +37,8 @@ async function addMusic(title, genre) {
 // Update existing music
 async function updateMusic(id, title, genre) {
     try {
-        const response = await fetch(`http://localhost:8080/api/v1/music/${id}`, {
+        const url = `${window.location.origin}/api/v1/music/${id}`;
+        const response = await fetch(url, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -59,7 +58,8 @@ async function updateMusic(id, title, genre) {
 // Delete existing music
 async function deleteMusic(id) {
     try {
-        const response = await fetch(`http://localhost:8080/api/v1/music/${id}`, {
+        const url = `${window.location.origin}/api/v1/music/${id}`;
+        const response = await fetch(url, {
             method: "DELETE"
         });
         if (!response.ok) {

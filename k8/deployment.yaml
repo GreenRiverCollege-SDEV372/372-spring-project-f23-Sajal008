@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: art-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      lab: music
+  template:
+    metadata:
+      labels:
+        lab: music
+    spec:
+      containers:
+        - name: music-container
+          image: sajal007/music:latest
+          ports:
+            - containerPort: 8080
